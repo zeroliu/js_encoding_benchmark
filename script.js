@@ -111,9 +111,8 @@ async function time(func, round) {
 function logResult(sizeInKb, timeRes) {
   const speed = 1 / (timeRes.avg / 1000 / sizeInKb);
   console.log(`${sizeInKb}k - speed: ${speed | 0} kBps, avg: ${
-      timeRes.avg.toFixed(
-          2)}, [${timeRes['25th'].toFixed(2)}, ${timeRes['50th'].toFixed(2)}, ${
-      timeRes['75th'].toFixed(2)}, ${timeRes['95th'].toFixed(2)}]`);
+      timeRes.avg.toFixed(2)}ms, median: ${
+      timeRes['50th'].toFixed(2)}ms, 95th: ${timeRes['95th'].toFixed(2)}ms`);
 }
 
 async function runEncode(obj) {
