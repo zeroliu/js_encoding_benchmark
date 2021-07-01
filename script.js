@@ -198,7 +198,7 @@ function base64Encode(obj) {
   return btoa(binaryStr);
 }
 
-function base64EncodeBenchmark(obj) {
+async function base64EncodeBenchmark(obj) {
   const start = performance.now();
   base64Encode(obj);
   return performance.now() - start;
@@ -216,7 +216,7 @@ function base64Decode(encodedStr) {
   return JSON.parse(json);
 }
 
-function base64DecodeBenchmark(obj) {
+async function base64DecodeBenchmark(obj) {
   const encodedStr = base64Encode(obj);
   const start = performance.now();
   base64Decode(encodedStr);
