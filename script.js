@@ -129,17 +129,18 @@ async function runDecode(obj) {
 
 async function encryptEntityBenchmark(obj) {
   const iv = new Uint8Array(16);
-  const data = encode(obj);
   const current = performance.now();
+  const data = encode(obj);
   await aesEncryptNative(data, iv);
   return performance.now() - current;
 }
 
 async function decryptEntityBenchmark(obj) {
   const iv = new Uint8Array(16);
-  const data = encode(obj);
+  let data = encode(obj);
   const encrypted = await aesEncryptNative(data, iv);
   const current = performance.now();
+  data = encode(obj);
   await aesDecryptNative(encrypted, iv);
   return performance.now() - current;
 }
