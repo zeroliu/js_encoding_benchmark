@@ -28,9 +28,9 @@ function encodeBenchmark(obj) {
   return performance.now() - start;
 }
 
-function decode(buffer) {
+function decode(typedArray) {
   const decoder = new TextDecoder();
-  return JSON.parse(decoder.decode(buffer));
+  return JSON.parse(decoder.decode(typedArray));
 }
 
 function decodeBenchmark(obj) {
@@ -140,8 +140,8 @@ async function decryptEntityBenchmark(obj) {
   let data = encode(obj);
   const encrypted = await aesEncryptNative(data, iv);
   const current = performance.now();
-  data = encode(obj);
-  await aesDecryptNative(encrypted, iv);
+  const raw = await aesDecryptNative(encrypted, iv);
+  decode(raw);
   return performance.now() - current;
 }
 
