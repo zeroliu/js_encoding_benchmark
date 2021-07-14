@@ -193,10 +193,17 @@ function fromBinary(binary) {
   return str;
 }
 
+function utf8ToB64( str ) {
+  return window.btoa(unescape(encodeURIComponent( str )));
+}
+
+function b64ToUtf8( str ) {
+  return decodeURIComponent(escape(window.atob( str )));
+}
+
 function base64Encode(obj) {
   const json = JSON.stringify(obj);
-  const binaryStr = toBinary(json);
-  return btoa(binaryStr);
+  return utf8ToB64(json);
 }
 
 async function base64EncodeBenchmark(obj) {
@@ -212,9 +219,7 @@ async function runBase64Encode(obj) {
 }
 
 function base64Decode(encodedStr) {
-  const binaryStr = atob(encodedStr);
-  const json = fromBinary(binaryStr);
-  return JSON.parse(json);
+  return JSON.parse(b64ToUtf8(encodedStr));
 }
 
 async function base64DecodeBenchmark(obj) {
